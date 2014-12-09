@@ -1,0 +1,61 @@
+<html ng-app="hoopsHub">
+<head>
+  <title>Hoops Hub</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/toastr.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body ng-controller="MainController">
+  
+  <div class="container-fluid navbar navbar-default navbar-fixed_top" id="top-nav" role="navigation">
+    <a class="navbar-brand" href="#/">
+      <img alt="Hoops Hub" src="logos/basketball-tiny.png">
+    </a>
+    <a class="navbar-right" href="https://github.com/stantastic6/hoops-hub">
+      <img alt="Github" src="logos/github.png">
+    </a>
+    <h4 class="navbar-right"><em>Hoops Hub</em></h4>
+    </form>
+    </div>
+  </div>
+  
+  
+  <div class="row-12" ng-init="getGames()">
+  <div class="row">
+    <div class="col-md-3 sidebar" id="side-bar">
+      <ul class="nav nav-sidebar" ng-repeat="game in games">
+        <a href="#/boxscore/{{game.id}}"><li class="table table-hover">
+          <table class="table table-hover">
+            <tr>
+              <td>{{game.away.name}}
+                <span><a class="pull-right" href="#/tickets/:{{game.id}}/:{{game.venue.name}}">Get Tickets</a></span><br>
+                {{game.home.name}}
+                <span class="pull-right" ng-show="game.status == 'scheduled'">{{game.scheduled | date :'h:mm a'}}</span>
+                <span class="pull-right" id="live" ng-show="game.status == 'inprogress'">Live</span>
+                <span class="pull-right" id="final" ng-show="game.status == 'closed' || game.status == 'complete'">Final</span>
+              </td>
+          </tr>
+          </table>
+        </li></a>
+      </ul>
+    </div>
+    
+
+  <div class="col-sm-9 main" id="main-content">
+    <div ng-view></div>
+  </div>
+
+  </div>
+</div>
+</div>
+ 
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/angular-resource.js"></script>
+<script src="js/toastr.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC02uplzLwGEOUZEeqIF0epILcAOYKX2NQ"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

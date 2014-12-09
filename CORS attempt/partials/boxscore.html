@@ -1,0 +1,92 @@
+<div class="row" id="box-score-container">
+<h1 class="text-center">Game Statistics</h1>
+      <br><br>
+      <div class="text-center text-success" ng-show="boxScore.status == 'closed' || boxScore.status == 'complete'"><strong>Final</strong></div>
+      <div class="text-center text-danger" ng-show="boxScore.status == 'inprogress' && boxScore.quarter == 1"><strong>{{boxScore.clock}} {{boxScore.quarter}}st Quarter</strong></div>
+      <div class="text-center text-danger" ng-show="boxScore.status == 'inprogress' && boxScore.quarter == 2"><strong>{{boxScore.clock}} {{boxScore.quarter}}nd Quarter</strong></div>
+      <div class="text-center text-danger" ng-show="boxScore.status == 'inprogress' && boxScore.quarter == 3"><strong>{{boxScore.clock}} {{boxScore.quarter}}rd Quarter</strong></div>
+      <div class="text-center text-danger" ng-show="boxScore.status == 'inprogress' && boxScore.quarter == 4"><strong>{{boxScore.clock}} {{boxScore.quarter}}th Quarter</strong></div>
+      <div class="text-center text-danger" ng-show="boxScore.status == 'inprogress' && boxScore.quarter > 4"><strong>{{boxScore.clock}} OT</strong></div>
+      <table class="table table-bordered">
+        <tr><td></td><th class="box-points" ng-repeat="quarter in boxScore.away.scoring">{{quarter.sequence}}</th><th class="box-points">Total</th>
+        </tr>
+        <tr><td class="box-name">{{boxScore.away.market}} {{boxScore.away.name}}</td>
+        <td class="box-points" ng-repeat="quarter in boxScore.away.scoring">{{quarter.points}}</td>
+        <td class="box-points">{{boxScore.away.points}}</td>
+        </tr>
+
+        <tr><td class="box-name">{{boxScore.home.market}} {{boxScore.home.name}}</td>
+        <td class="box-points" ng-repeat="quarter in boxScore.home.scoring">{{quarter.points}}</td>
+        <td class="box-points">{{boxScore.home.points}}</td>
+        </tr>
+      </table><br><br>
+      
+      
+      <!-- Google Chart -->
+    <div google-chart chart="chartObject"></div>
+      
+    <!-- Team Summaries  -->  
+      <table class="table table-striped text-center">
+        <tr><th class="text-center">{{boxScore.away.market}}</th><th class="text-center">Team</th><th class="text-center">{{boxScore.home.market}}</th></tr>
+        <tr><td>{{boxScore.away.statistics.points}}</td><td>Points</td><td>{{boxScore.home.statistics.points}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.two_points_made}}</td><td>2-pt Made</td> <td>{{boxScore.home.statistics.two_points_made}}</td> </tr>
+        <tr><td>{{boxScore.away.statistics.two_points_att}}</td><td>2-pt Attempts</td><td>{{boxScore.home.statistics.two_points_att}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.two_points_pct}}</td><td>2-pt Percentage</td><td>{{boxScore.home.statistics.two_points_pct}}</td></tr>     
+        <tr><td>{{boxScore.away.statistics.rebounds}}</td><td>Rebounds</td><td>{{boxScore.home.statistics.rebounds}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.offensive_rebounds}}</td><td>Offensive Rebounds</td><td>{{boxScore.home.statistics.offensive_rebounds}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.assists}}</td><td>Assists</td><td>{{boxScore.home.statistics.assists}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.three_points_made}}</td><td>3-pt Made</td><td>{{boxScore.home.statistics.three_points_made}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.three_points_att}}</td><td>3-pt Attempts</td><td>{{boxScore.home.statistics.three_points_att}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.three_points_pct}}</td><td>3-pt Percentage</td><td>{{boxScore.home.statistics.three_points_pct}}</td></tr>        
+        <tr><td>{{boxScore.away.statistics.turnovers}}</td><td>Turnovers</td><td>{{boxScore.home.statistics.turnovers}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.free_throws_made}}</td><td>FT Made</td><td>{{boxScore.home.statistics.free_throws_made}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.free_throws_att}}</td><td>FT Attempts</td><td>{{boxScore.home.statistics.free_throws_att}}</td></tr>
+        <tr><td>{{boxScore.away.statistics.free_throws_pct}}</td><td>FT Percentage</td><td>{{boxScore.home.statistics.free_throws_pct}}</td></tr>        
+      </table><br><br>
+    
+  
+      <!-- Away Team Stats -->
+      <h2 class="text-center">{{boxScore.away.market}} {{boxScore.away.name}}</h2><br>
+      <img class="center-block" src="logos/{{boxScore.away.name}}.gif"><br><br>
+      <table class="table table-bordered text-center">
+        <tr class="text-center">
+          <th>Name</th><th>Min</th><th>FGM-A</th><th>FTM-A</th><th>OREB</th>
+          <th>DREB</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th>
+          <th>TO</th><th>Fouls</th><th>Points</th>
+        </tr>
+        <tr ng-repeat=" player in boxScore.away.players">
+          <td>{{player.full_name}}</td><td>{{player.statistics.minutes}}</td>
+          <td>{{player.statistics.field_goals_made}}-{{player.statistics.field_goals_att}}</td>
+          <td>{{player.statistics.free_throws_made}}-{{player.statistics.free_throws_att}}</td>
+          <td>{{player.statistics.offensive_rebounds}}</td>
+          <td>{{player.statistics.defensive_rebounds}}</td>
+          <td>{{player.statistics.rebounds}}</td><td>{{player.statistics.assists}}</td>
+          <td>{{player.statistics.steals}}</td><td>{{player.statistics.blocks}}</td>
+          <td>{{player.statistics.turnovers}}</td>
+          <td>{{player.statistics.personal_fouls}}</td><td>{{player.statistics.points}}</td>
+        </tr>
+      </table><br><br>
+
+      <!-- Home Team Stats -->
+
+      <h2 class="text-center">{{boxScore.home.market}} {{boxScore.home.name}}</h2><br>
+      <img class="center-block" ng-src="logos/{{boxScore.home.name}}.gif"><br><br>
+      <table class="table table-bordered text-center">
+        <tr class="text-center">
+          <th>Name</th><th>Min</th><th>FGM-A</th><th>FTM-A</th><th>OREB</th>
+          <th>DREB</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th>
+          <th>TO</th><th>Fouls</th><th>Points</th>
+        </tr>
+        <tr ng-repeat=" player in boxScore.home.players">
+          <td>{{player.full_name}}</td><td>{{player.statistics.minutes}}</td>
+          <td>{{player.statistics.field_goals_made}}-{{player.statistics.field_goals_att}}</td>
+          <td>{{player.statistics.free_throws_made}}-{{player.statistics.free_throws_att}}</td>
+          <td>{{player.statistics.offensive_rebounds}}</td>
+          <td>{{player.statistics.defensive_rebounds}}</td>
+          <td>{{player.statistics.rebounds}}</td><td>{{player.statistics.assists}}</td>
+          <td>{{player.statistics.steals}}</td><td>{{player.statistics.blocks}}</td>
+          <td>{{player.statistics.turnovers}}</td>
+          <td>{{player.statistics.personal_fouls}}</td><td>{{player.statistics.points}}</td>
+        </tr>
+      </table>    
+</div>
